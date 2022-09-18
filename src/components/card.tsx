@@ -1,11 +1,11 @@
-import React, {Fragment} from 'react';
+import React from 'react';
 
 import {useTheme} from '@react-navigation/native';
-import {StyleSheet, ViewStyle, View, Pressable} from 'react-native';
+import {StyleSheet, ViewStyle, View, Pressable, Dimensions} from 'react-native';
 
-import {borderRadius, colors, HP, spacing, fontSize, WP} from '../constants';
+import {borderRadius, colors, HP, spacing} from '../constants';
 
-import {Text, H6, H4, H5, H3, Image} from './';
+import {H6, H4, H3, Image} from './';
 import Icon from './icon';
 import ActivityLabel from './activityLabel';
 
@@ -20,7 +20,12 @@ interface IProps {
   firstEpisode: string;
   firstEpisodeDate: string;
   status: 'Alive' | 'Dead' | 'unknown';
+  grid: boolean;
+  emptyGridCard?: boolean;
+  numColumns: number;
 }
+
+const cardBorderRadius = borderRadius.small;
 export default function Card(props: IProps) {
   const {
     style,
@@ -33,54 +38,99 @@ export default function Card(props: IProps) {
     firstEpisode,
     firstEpisodeDate,
     status,
+    grid,
+    emptyGridCard,
+    numColumns,
   } = props;
   const theme = useTheme();
-  const styles = useStyles({theme});
+  const styles = useStyles({theme, grid, numColumns});
 
-  return (
-    <Pressable onPress={onPress} style={[styles.container, {...style}]}>
-      <View style={styles.imgContainer}>
-        <Image
-          source={{
-            uri:
-              image ||
-              'https://rickandmortyapi.com/api/character/avatar/1.jpeg',
-          }}
-        />
-      </View>
-      <View style={styles.content}>
-        <View style={styles.contentOne}>
-          <H3 semiBold>{name}</H3>
-          <View style={styles.geneContainer}>
-            <H6>{species},</H6>
-            <H6 style={styles.origin}>{origin}</H6>
-            <ActivityLabel text={status} />
-          </View>
-          <View style={styles.episodeContainer}>
-            <H6>Episode: </H6>
-            <H6>{firstEpisode}</H6>
-            <View style={styles.dot} />
-            <H6>{firstEpisodeDate}</H6>
-          </View>
-        </View>
-        <View style={styles.contentTwo}>
-          <Icon
-            onPress={onPressLike}
-            name={'heart-outline'}
-            size={HP('5%')}
-            color={colors.errorBackground}
+  if (grid) {
+    return (
+      <Pressable onPress={onPress} style={[styles.gridContainer, {...style}]}>
+        <View style={styles.imgContainer}>
+          <Image
+            source={{
+              uri:
+                image ||
+                'https://rickandmortyapi.com/api/character/avatar/1.jpeg',
+            }}
           />
         </View>
-      </View>
-    </Pressable>
-  );
+        <View style={styles.content}>
+          <View style={styles.contentOne}>
+            <H4 semiBold>{name}</H4>
+            <View style={styles.geneContainerGrid}>
+              <View style={styles.geneContainerGridContentOne}>
+                <H6>{species},</H6>
+                <H6 style={styles.origin}>{origin}</H6>
+              </View>
+              <ActivityLabel text={status} />
+            </View>
+            <View style={styles.episodeContainer}>
+              <View style={styles.geneEpisodeContent}>
+                <H6>Episode: </H6>
+                <H6>{firstEpisode}</H6>
+              </View>
+
+              <H6>{firstEpisodeDate}</H6>
+            </View>
+          </View>
+          <View style={styles.contentTwoGrid}>
+            <Icon
+              onPress={onPressLike}
+              name={'heart-outline'}
+              size={HP('4%')}
+              color={colors.errorBackground}
+            />
+          </View>
+        </View>
+      </Pressable>
+    );
+  } else if (emptyGridCard) {
+    return <View style={[styles.item]} />;
+  } else {
+    return (
+      <Pressable onPress={onPress} style={[styles.container, {...style}]}>
+        <View style={styles.imgContainer}>
+          <Image
+            source={{
+              uri:
+                image ||
+                'https://rickandmortyapi.com/api/character/avatar/1.jpeg',
+            }}
+          />
+        </View>
+        <View style={styles.content}>
+          <View style={styles.contentOne}>
+            <H3 semiBold>{name}</H3>
+            <View style={styles.geneContainer}>
+              <H6>{species},</H6>
+              <H6 style={styles.origin}>{origin}</H6>
+              <ActivityLabel text={status} />
+            </View>
+            <View style={styles.episodeContainer}>
+              <H6>Episode: </H6>
+              <H6>{firstEpisode}</H6>
+              <View style={styles.dot} />
+              <H6>{firstEpisodeDate}</H6>
+            </View>
+          </View>
+          <View style={styles.contentTwo}>
+            <Icon
+              onPress={onPressLike}
+              name={'heart-outline'}
+              size={HP('5%')}
+              color={colors.errorBackground}
+            />
+          </View>
+        </View>
+      </Pressable>
+    );
+  }
 }
 
-const useStyles = (props: {
-  theme: any;
-  backgroundColor?: string;
-  cardTintColor?: string;
-}) =>
+const useStyles = (props: {theme: any; grid: boolean; numColumns: number}) =>
   StyleSheet.create({
     container: {
       marginBottom: spacing.xsmall,
@@ -88,28 +138,44 @@ const useStyles = (props: {
     imgContainer: {
       height: HP('20%'),
       width: '100%',
+      borderTopLeftRadius: cardBorderRadius,
+      borderTopRightRadius: cardBorderRadius,
     },
 
     content: {
-      flexDirection: 'row',
+      flexDirection: props.grid ? 'column' : 'row',
       justifyContent: 'space-between',
       paddingLeft: spacing.xxsmall,
       paddingTop: spacing.xxsmall,
     },
     contentOne: {
-      width: '70%',
+      width: props.grid ? '100%' : '70%',
     },
     geneContainer: {
       flexDirection: 'row',
       alignItems: 'center',
       marginVertical: spacing.xxxsmall,
     },
+    geneContainerGrid: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      marginVertical: spacing.xxxsmall,
+      justifyContent: 'space-between',
+      marginRight: spacing.xxsmall,
+    },
+    geneContainerGridContentOne: {
+      flexDirection: 'row',
+      alignItems: 'baseline',
+    },
+    geneEpisodeContent: {
+      flexDirection: 'row',
+    },
     origin: {
       marginHorizontal: spacing.mini,
     },
     episodeContainer: {
-      flexDirection: 'row',
-      alignItems: 'center',
+      flexDirection: props.grid ? 'column' : 'row',
+      alignItems: props.grid ? 'flex-start' : 'center',
     },
     dot: {
       backgroundColor: colors.grey,
@@ -122,5 +188,29 @@ const useStyles = (props: {
       width: '30%',
       justifyContent: 'center',
       alignItems: 'center',
+    },
+    contentTwoGrid: {
+      justifyContent: 'flex-start',
+      alignItems: 'flex-start',
+      paddingTop: spacing.xxxsmall,
+    },
+
+    gridContainer: {
+      borderColor: props.theme.dark ? colors.grey : colors.greyAlternate,
+      borderWidth: 1,
+      borderStyle: 'solid',
+      paddingBottom: spacing.xxxsmall,
+      marginBottom: spacing.xxsmall,
+      marginHorizontal: spacing.mini,
+      borderRadius: cardBorderRadius,
+    },
+
+    item: {
+      backgroundColor: 'transparent',
+      alignItems: 'center',
+      justifyContent: 'center',
+      flex: 1,
+      margin: 1,
+      height: Dimensions.get('window').width / props.numColumns, // approximate a square
     },
   });

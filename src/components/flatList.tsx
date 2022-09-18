@@ -14,6 +14,7 @@ interface IProps {
   keyExtractor: (item: any) => any;
   emptyListText: string;
   listHeader?: any;
+  numColumns?: number;
   style?: ViewStyle;
 }
 
@@ -27,6 +28,7 @@ export default function SJFlatList(props: IProps) {
     renderItem,
     showsVerticalScrollIndicator,
     listHeader,
+    numColumns,
     style,
     ...otherProps
   } = props;
@@ -44,6 +46,7 @@ export default function SJFlatList(props: IProps) {
       renderItem={renderItem}
       entering={FadeIn.duration(300)}
       showsVerticalScrollIndicator={showsVerticalScrollIndicator || false}
+      numColumns={numColumns}
       ListEmptyComponent={<EmptyList subTitle={emptyListText} />}
       refreshControl={
         <RefreshControl

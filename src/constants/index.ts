@@ -14,6 +14,7 @@ export {default as boxWithSmallShadow} from './boxWithSmallShadow';
 export {default as boxWithShadow} from './boxWithShadow';
 export {default as boxWithBigShadow} from './boxWithBigShadow';
 export {default as fontSize} from './fontSize';
+export {default as formatFlatListGridData} from './formatFlatListGridData';
 
 export const fontFamily = 'Montserrat-Regular';
 export const fontFamilyLight = 'Montserrat-Light';
