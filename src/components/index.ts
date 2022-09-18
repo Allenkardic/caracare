@@ -21,3 +21,4 @@ export {default as ModalLoader} from './modalLoader';
 export {default as FloatingActionButton} from './floatingActionButton';
 export {default as KeyboardAvoidingView} from './keyBoardAvoidingView';
 export {default as RightNavigationIcon} from './rightNavigationIcon';
+export {default as ActivityLabel} from './activityLabel';
