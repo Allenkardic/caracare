@@ -6,7 +6,7 @@ export default {
   stack: {
     onboarding: 'Onboarding',
     addCharacter: 'AddCharacter',
-    characters: 'Characters',
+    home: 'Home',
     characterDetails: 'CharacterDetails',
     settings: 'Settings',
     favourite: 'Favourite',

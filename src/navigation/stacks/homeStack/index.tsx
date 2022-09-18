@@ -2,7 +2,7 @@ import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {useTheme} from '@react-navigation/native';
 import stack from '../../../constants/routes';
-
+import {RightNavigationIcon} from '../../../components';
 import {
   Characters,
   CharacterDetails,
@@ -10,7 +10,7 @@ import {
   Settings,
 } from '../../../screens/home';
 
-const {characters, characterDetails, addCharacter, settings} = stack.stack;
+const {home, characterDetails, addCharacter, settings} = stack.stack;
 
 const Stack = createNativeStackNavigator();
 function OnboardingRoutes() {
@@ -24,13 +24,19 @@ function OnboardingRoutes() {
           backgroundColor: theme.colors.background,
         },
       }}
-      initialRouteName={onboarding}>
+      initialRouteName={home}>
       <Stack.Screen
         options={({navigation}) => ({
           headerShown: true,
           title: 'Characters',
+          headerRight: () => (
+            <RightNavigationIcon
+              name="settings-outline"
+              onPress={() => navigation.navigate(settings)}
+            />
+          ),
         })}
-        name={characters}
+        name={home}
         component={Characters}
       />
       <Stack.Screen

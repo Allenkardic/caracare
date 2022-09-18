@@ -10,6 +10,9 @@ import {HP, fontSize, colors as conColors} from '../constants';
 
 import HomeRoutes from './stacks/homeStack';
 import FavouriteRoutes from './stacks/favouriteStack';
+import stack from '../constants/routes';
+
+const {home, favourite} = stack.stack;
 
 const Tab = createBottomTabNavigator();
 
@@ -55,24 +58,20 @@ export default function BottomTab() {
       component: HomeRoutes,
       inactiveIcon: 'home-outline',
       activeIcon: 'home',
-      activeTintColor: 'red',
-      inactiveTintColor: 'blue',
     },
     {
       route: 'FavouriteRoutes',
       label: 'Favourite',
-      inactiveIcon: 'wallet-outline',
-      activeIcon: 'wallet',
+      inactiveIcon: 'heart-outline',
+      activeIcon: 'heart',
       component: FavouriteRoutes,
-      activeTintColor: 'red',
-      inactiveTintColor: 'blue',
     },
   ];
 
   //   the bottom tab bars will only be visible on these routes
   function getTabBarVisibility(route: any) {
-    const routeName = getFocusedRouteNameFromRoute(route) ?? 'Home';
-    if (routeName === 'Home' || routeName === 'Favourite') {
+    const routeName = getFocusedRouteNameFromRoute(route) ?? home;
+    if (routeName === home || routeName === favourite) {
       return 'flex';
     }
     return 'none';
@@ -80,7 +79,7 @@ export default function BottomTab() {
 
   return (
     <Tab.Navigator
-      initialRouteName="Home"
+      initialRouteName={home}
       screenOptions={{
         headerShown: false,
       }}>
