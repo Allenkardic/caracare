@@ -1,7 +1,7 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
 import {api, Characters} from '../../api';
 
-interface TradesState {
+interface CharactersState {
   data: Characters | undefined;
   status: 'idle' | 'loading' | 'succeeded' | 'failed';
   error: any;
@@ -11,26 +11,29 @@ const initialState = {
   data: undefined,
   status: 'idle',
   error: null,
-} as TradesState;
+} as CharactersState;
 
-export const fetchCharacter = createAsyncThunk('characters', async () => {
-  const response = await api.getCharacter();
-  return response.parsedBody as Characters;
-});
+export const fetchCharacters = createAsyncThunk(
+  'characters',
+  async (payload: number) => {
+    const response = await api.getCharacters(payload);
+    return response.parsedBody as Characters;
+  },
+);
 
 const charactersSlice = createSlice({
   name: 'characters',
   initialState,
   reducers: {},
   extraReducers: builder => {
-    builder.addCase(fetchCharacter.pending, state => {
+    builder.addCase(fetchCharacters.pending, state => {
       state.status = 'loading';
     });
-    builder.addCase(fetchCharacter.fulfilled, (state, action) => {
+    builder.addCase(fetchCharacters.fulfilled, (state, action) => {
       state.status = 'succeeded';
       state.data = action.payload || [];
     });
-    builder.addCase(fetchCharacter.rejected, (state, action) => {
+    builder.addCase(fetchCharacters.rejected, (state, action) => {
       state.status = 'failed';
       state.error = action.payload;
     });

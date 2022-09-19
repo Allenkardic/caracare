@@ -8,6 +8,7 @@ import EmptyList from './emptyList';
 interface IProps {
   data: any[] | [];
   onRefresh: any;
+  onEndReached: any;
   renderItem: any;
   refreshing: boolean;
   showsVerticalScrollIndicator?: boolean;
@@ -22,6 +23,7 @@ export default function SJFlatList(props: IProps) {
   const {
     data,
     onRefresh,
+    onEndReached,
     refreshing,
     keyExtractor,
     emptyListText,
@@ -42,6 +44,7 @@ export default function SJFlatList(props: IProps) {
       style={[styles.container, {...style}]}
       refreshing={refreshing}
       onRefresh={onRefresh}
+      onEndReached={onEndReached}
       keyExtractor={keyExtractor}
       renderItem={renderItem}
       entering={FadeIn.duration(300)}

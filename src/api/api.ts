@@ -42,8 +42,9 @@ export type Characters = characterType[];
  * https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getproducttrades
  */
 // const history = async (page: number, count: number) =>
-const getCharacter = async () => get<Characters>('character');
+const getCharacters = async (page: number) =>
+  get<Characters>(`character/?page=${page}`);
 
 export const api = {
-  getCharacter,
+  getCharacters,
 };

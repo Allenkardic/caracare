@@ -9,7 +9,11 @@ export default function formatFlatListGridData(
     numberOfElementsLastRow !== numColumns &&
     numberOfElementsLastRow !== 0
   ) {
-    data.push({key: `blank-${numberOfElementsLastRow}`, empty: true});
+    data.push({
+      key: `blank-${numberOfElementsLastRow}`,
+      empty: true,
+      id: 1001.022,
+    });
     numberOfElementsLastRow++;
   }
   return data;
