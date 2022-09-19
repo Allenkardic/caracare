@@ -76,7 +76,7 @@ function Characters({navigation}) {
 
   const renderItem = ({item}: any) => {
     if (item.empty === true) {
-      return <EmptyCard numColumns={numColumns} />;
+      return <EmptyCard />;
     }
     return (
       <View style={styles.container}>
