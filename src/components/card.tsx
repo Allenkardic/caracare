@@ -3,7 +3,7 @@ import React from 'react';
 import {useTheme} from '@react-navigation/native';
 import {StyleSheet, ViewStyle, View, Pressable, Dimensions} from 'react-native';
 
-import {borderRadius, colors, HP, spacing} from '../constants';
+import {borderRadius, colors, HP, spacing, ellipsis} from '../constants';
 
 import {H6, H4, H3, Image} from './';
 import Icon from './icon';
@@ -17,12 +17,13 @@ interface IProps {
   name: string;
   species: string;
   origin: string;
-  firstEpisode: string;
-  firstEpisodeDate: string;
+  firstEpisode?: string;
+  firstEpisodeDate?: string;
   status: 'Alive' | 'Dead' | 'unknown';
   grid: boolean;
   emptyGridCard?: boolean;
   numColumns: number;
+  isFavourite?: boolean;
 }
 
 const cardBorderRadius = borderRadius.small;
@@ -41,6 +42,7 @@ export default function Card(props: IProps) {
     grid,
     emptyGridCard,
     numColumns,
+    isFavourite,
   } = props;
   const theme = useTheme();
   const styles = useStyles({theme, grid, numColumns});
@@ -62,27 +64,21 @@ export default function Card(props: IProps) {
             <H4 semiBold>{name}</H4>
             <View style={styles.geneContainerGrid}>
               <View style={styles.geneContainerGridContentOne}>
-                <H6>{species},</H6>
-                <H6 style={styles.origin}>{origin}</H6>
+                <H6>{ellipsis(species, 9)},</H6>
+                <H6 style={styles.origin}>{ellipsis(origin, 9)}</H6>
               </View>
-              <ActivityLabel text={status} />
-            </View>
-            <View style={styles.episodeContainer}>
-              <View style={styles.geneEpisodeContent}>
-                <H6>Episode: </H6>
-                <H6>{firstEpisode}</H6>
-              </View>
-
-              <H6>{firstEpisodeDate}</H6>
             </View>
           </View>
           <View style={styles.contentTwoGrid}>
             <Icon
               onPress={onPressLike}
-              name={'heart-outline'}
+              name={isFavourite ? 'heart' : 'heart-outline'}
               size={HP('4%')}
               color={colors.errorBackground}
             />
+            <View>
+              <ActivityLabel text={status} />
+            </View>
           </View>
         </View>
       </Pressable>
@@ -119,7 +115,7 @@ export default function Card(props: IProps) {
           <View style={styles.contentTwo}>
             <Icon
               onPress={onPressLike}
-              name={'heart-outline'}
+              name={isFavourite ? 'heart' : 'heart-outline'}
               size={HP('5%')}
               color={colors.errorBackground}
             />
@@ -190,9 +186,11 @@ const useStyles = (props: {theme: any; grid: boolean; numColumns: number}) =>
       alignItems: 'center',
     },
     contentTwoGrid: {
-      justifyContent: 'flex-start',
-      alignItems: 'flex-start',
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
       paddingTop: spacing.xxxsmall,
+      paddingRight: spacing.xxsmall,
     },
 
     gridContainer: {

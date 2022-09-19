@@ -1,14 +1,15 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
 import {api, Characters} from '../../api';
+import {characterResultType} from '../../types';
 
 interface CharactersState {
-  data: Characters | undefined;
+  data: characterResultType[];
   status: 'idle' | 'loading' | 'succeeded' | 'failed';
   error: any;
 }
 
 const initialState = {
-  data: undefined,
+  data: [],
   status: 'idle',
   error: null,
 } as CharactersState;
@@ -17,7 +18,14 @@ export const fetchCharacters = createAsyncThunk(
   'characters',
   async (payload: number) => {
     const response = await api.getCharacters(payload);
-    return response.parsedBody as Characters;
+    const updatedData: characterResultType[] = [];
+    response.parsedBody?.results.map((item: characterResultType) => {
+      updatedData.push({
+        ...item,
+        isFavourite: false,
+      });
+    });
+    return updatedData as characterResultType[];
   },
 );
 

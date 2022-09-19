@@ -35,7 +35,8 @@ async function get<T>(
   // return await http<T>(new Request(`${BASE_URL}${path}`, args));
 }
 
-export type Characters = characterType[];
+// export type Characters = characterType[];
+export type Characters = characterType;
 
 /**
  * Docs
