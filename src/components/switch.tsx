@@ -1,14 +1,17 @@
 import React from 'react';
 
-import { Switch as RNSwitch, SwitchProps, ViewStyle, StyleSheet, View } from 'react-native';
+import {
+  Switch as RNSwitch,
+  SwitchProps,
+  ViewStyle,
+  StyleSheet,
+  View,
+} from 'react-native';
 
-import { colors } from '../constants';
-
-import ErrorLabel from './errorLabel';
-
-import { Label } from './';
+import {colors, spacing} from '../constants';
+import {H3} from './';
 interface IProps extends SwitchProps {
-  onChangeText: any;
+  onValueChange: any;
   value: boolean;
   label?: string;
   error?: string;
@@ -16,27 +19,28 @@ interface IProps extends SwitchProps {
 }
 
 export default function SwitchInput(props: IProps) {
-  const { onChangeText, label, value, error, style, ...others } = props;
+  const {onValueChange, label, value, error, style, ...others} = props;
 
   return (
     <View style={styles.container}>
-      {label && <Label>{label}</Label>}
-
+      <H3>{label}</H3>
       <RNSwitch
-        style={{ ...style }}
-        onValueChange={onChangeText}
+        style={{...style}}
+        onValueChange={onValueChange}
         value={value}
-        trackColor={{ false: colors.greyVariantThree, true: colors.primaryColor }}
+        trackColor={{false: colors.greyVariantThree, true: colors.primaryColor}}
         thumbColor={value == true ? colors.white : colors.white}
         {...others}
       />
-      {error && <ErrorLabel message={error} />}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    paddingVertical: 5,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: spacing.xxsmall,
   },
 });

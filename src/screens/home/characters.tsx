@@ -30,6 +30,7 @@ function Characters({navigation}) {
 
   const dispatch = useAppDispatch();
   const charactersState = useSelector((state: RootState) => state.characters);
+  const settingsState = useSelector((state: RootState) => state.settings);
 
   const [dataList, setDataList] = useState([]);
   const [grid, setGrid] = useState(true);
@@ -45,6 +46,16 @@ function Characters({navigation}) {
     {name: 'Dead', isFiltering: false},
     {name: 'unknown', isFiltering: false},
   ]);
+
+  React.useLayoutEffect(() => {
+    if (settingsState.data.isCharacterScreenGrid) {
+      setGrid(true);
+      setNumColumns(2);
+    } else {
+      setGrid(false);
+      setNumColumns(1);
+    }
+  }, []);
 
   React.useEffect(() => {
     const payload = {
@@ -99,7 +110,7 @@ function Characters({navigation}) {
           origin={item.origin.name}
           status={item.status}
           isFavourite={item.isFavourite}
-          grid={grid}
+          grid={settingsState.data.isCharacterScreenGrid}
           numColumns={numColumns}
         />
       </View>
@@ -153,6 +164,18 @@ function Characters({navigation}) {
     setFilterStatusData(updatedData);
   };
 
+  console.log();
+
+  function number() {
+    let number: number;
+    if (settingsState.data.isCharacterScreenGrid) {
+      number = 2;
+    } else {
+      number = 1;
+    }
+
+    return number;
+  }
   return (
     <View style={styles.container}>
       <SearchInput
@@ -184,16 +207,19 @@ function Characters({navigation}) {
           </View>
         ))}
       </View>
-      <FlatList
-        data={formatFlatListGridData(dataList, numColumns)}
-        numColumns={numColumns}
-        renderItem={renderItem}
-        emptyListText="No character have been added yet"
-        onEndReached={handleOnEndReached}
-        onRefresh={handleOnRefresh}
-        refreshing={charactersState.status === 'loading'}
-        keyExtractor={item => item.id.toString() ?? ''}
-      />
+      {settingsState.status !== 'loading' && (
+        <FlatList
+          data={formatFlatListGridData(dataList, number())}
+          // numColumns={numColumns}
+          numColumns={number()}
+          renderItem={renderItem}
+          emptyListText="No character have been added yet"
+          onEndReached={handleOnEndReached}
+          onRefresh={handleOnRefresh}
+          refreshing={charactersState.status === 'loading'}
+          keyExtractor={item => item.id.toString() ?? ''}
+        />
+      )}
 
       <Modal
         isVisible={modalVisible}

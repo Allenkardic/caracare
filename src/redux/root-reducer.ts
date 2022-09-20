@@ -5,6 +5,7 @@ import {
   firstEpisodeSliceReducer,
   lastEpisodeSliceReducer,
   singleCharacterSliceReducer,
+  settingsSliceReducer,
 } from './slice';
 
 const rootReducer = combineReducers({
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
   firstEpisode: firstEpisodeSliceReducer,
   lastEpisode: lastEpisodeSliceReducer,
   singleCharacter: singleCharacterSliceReducer,
+  settings: settingsSliceReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;
