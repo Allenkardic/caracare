@@ -51,7 +51,6 @@ export default function SearchInput(props: IProps) {
     iconOnPress,
     note,
     suffix,
-
     ...others
   } = props;
 
@@ -59,27 +58,33 @@ export default function SearchInput(props: IProps) {
   const styles = useStyles({appTheme});
 
   return (
-    <View style={styles.container}>
-      <View style={styles.textContainer}>
-        {icon && (
-          <TouchableOpacity style={{...iconStyle}} onPress={iconOnPress}>
-            <Icon name={icon} color={iconColor} size={HP('2.5%')} />
-          </TouchableOpacity>
-        )}
-        <RNTextInput
-          autoCapitalize="none"
-          style={{...theme.textInput, ...styles.textInput, ...style}}
-          onChangeText={onChangeText}
-          value={value}
-          keyboardType={keyboardType || 'default'}
-          placeholder={placeholder}
-          placeholderTextColor={colors.grey}
-          secureTextEntry={secureTextEntry}
-          {...others}
-        />
+    <View
+      style={{
+        ...styles.container,
+        ...style,
+      }}>
+      <View style={styles.searchInputcontainer}>
+        <View style={styles.textContainer}>
+          {icon && (
+            <TouchableOpacity style={{...iconStyle}}>
+              <Icon name={icon} color={iconColor} size={20} />
+            </TouchableOpacity>
+          )}
+          <RNTextInput
+            autoCapitalize="none"
+            style={{...theme.textInput, ...styles.textInput}}
+            onChangeText={onChangeText}
+            value={value}
+            keyboardType={keyboardType || 'default'}
+            placeholder={placeholder}
+            placeholderTextColor={colors.grey}
+            secureTextEntry={secureTextEntry}
+            {...others}
+          />
+        </View>
       </View>
-      <Pressable>
-        <Icon name={""}
+      <Pressable onPress={iconOnPress} style={styles.iconContainer}>
+        <Icon name={'filter'} size={30} color={colors.white} />
       </Pressable>
     </View>
   );
@@ -88,16 +93,21 @@ export default function SearchInput(props: IProps) {
 const useStyles = (props: {appTheme: any}) =>
   StyleSheet.create({
     container: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+    },
+    searchInputcontainer: {
       paddingVertical: spacing.mini,
     },
     textContainer: {
-      width: '100%',
+      width: '95%',
       borderRadius: borderRadius.round,
       flexDirection: 'row',
       backgroundColor: props.appTheme.dark
         ? colors.greyVariantThree
         : colors.white,
-      height: HP('5%'),
+      height: 40,
       alignItems: 'center',
       justifyContent: 'center',
       borderColor: props.appTheme.dark ? colors.black : colors.white,
@@ -112,5 +122,13 @@ const useStyles = (props: {appTheme: any}) =>
       borderStyle: 'solid',
       height: '100%',
       width: '85%',
+    },
+    iconContainer: {
+      backgroundColor: colors.primaryColor,
+      width: 40,
+      height: 40,
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: borderRadius.small,
     },
   });

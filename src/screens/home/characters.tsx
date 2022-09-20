@@ -1,8 +1,24 @@
 import React, {useState} from 'react';
 import {View, StyleSheet, Alert} from 'react-native';
 import {useSelector} from 'react-redux';
-import {Card, EmptyCard, FlatList, SearchInput, H3} from '../../components';
-import {formatFlatListGridData, routes} from '../../constants';
+import {
+  Card,
+  EmptyCard,
+  FlatList,
+  SearchInput,
+  Modal,
+  H3,
+  Checker,
+  H6,
+} from '../../components';
+import {
+  borderRadius,
+  colors,
+  formatFlatListGridData,
+  routes,
+  spacing,
+  statusFilter,
+} from '../../constants';
 import {useAppDispatch, RootState} from '../../redux';
 import {fetchCharacters, addFavouriteCharacters} from '../../redux/slice';
 import stack from '../../constants/routes';
@@ -11,93 +27,32 @@ import {characterResultType} from '../../types';
 
 function Characters({navigation}) {
   const {characterDetails} = stack.stack;
-  // const [dataList, setDataList] = useState([
-  //   {
-  //     id: 1,
-  //     image: 'https://rickandmortyapi.com/api/character/avatar/1.jpeg',
-  //     name: 'Rick Sanchez',
-  //     species: 'Human',
-  //     origin: 'Earth',
-  //     status: 'Alive',
-  //     firstEpisode: 'S01E01',
-  //     firstEpisodeDate: 'December 2, 2013',
-  //   },
-  //   {
-  //     id: 2,
-  //     image: 'https://rickandmortyapi.com/api/character/avatar/1.jpeg',
-  //     name: 'Rick Sanchez',
-  //     species: 'Human',
-  //     origin: 'Earth',
-  //     status: 'Dead',
-  //     firstEpisode: 'S01E01',
-  //     firstEpisodeDate: 'December 2, 2013',
-  //   },
-  //   {
-  //     id: 3,
-  //     image: 'https://rickandmortyapi.com/api/character/avatar/1.jpeg',
-  //     name: 'Rick Sanchez',
-  //     species: 'Human',
-  //     origin: 'Earth',
-  //     status: 'Alive',
-  //     firstEpisode: 'S01E01',
-  //     firstEpisodeDate: 'December 2, 2013',
-  //   },
-  //   {
-  //     id: 4,
-  //     image: 'https://rickandmortyapi.com/api/character/avatar/1.jpeg',
-  //     name: 'Rick Sanchez',
-  //     species: 'Human',
-  //     origin: 'Earth',
-  //     status: 'Alive',
-  //     firstEpisode: 'S01E01',
-  //     firstEpisodeDate: 'December 2, 2013',
-  //   },
-  //   {
-  //     id: 5,
-  //     image: 'https://rickandmortyapi.com/api/character/avatar/1.jpeg',
-  //     name: 'Rick Sanchez',
-  //     species: 'Human',
-  //     origin: 'Earth',
-  //     status: 'Alive',
-  //     firstEpisode: 'S01E01',
-  //     firstEpisodeDate: 'December 2, 2013',
-  //   },
-  //   {
-  //     id: 6,
-  //     image: 'https://rickandmortyapi.com/api/character/avatar/1.jpeg',
-  //     name: 'Rick Sanchez',
-  //     species: 'Human',
-  //     origin: 'Earth',
-  //     status: 'Alive',
-  //     firstEpisode: 'S01E01',
-  //     firstEpisodeDate: 'December 2, 2013',
-  //   },
-  //   {
-  //     id: 7,
-  //     image: 'https://rickandmortyapi.com/api/character/avatar/1.jpeg',
-  //     name: 'Rick Sanchez',
-  //     species: 'Human',
-  //     origin: 'Earth',
-  //     status: 'Alive',
-  //     firstEpisode: 'S01E01',
-  //     firstEpisodeDate: 'December 2, 2013',
-  //   },
-  // ]);
 
   const dispatch = useAppDispatch();
   const charactersState = useSelector((state: RootState) => state.characters);
-  // console.log(charactersState.data?.results?.length, 'toget the data' ==20);
-  // console.log(charactersState.data, 'toget');
-  // console.log(charactersState.data, 'toget the data');
 
   const [dataList, setDataList] = useState([]);
   const [grid, setGrid] = useState(true);
   const [page, setPage] = useState(1);
   const [numColumns, setNumColumns] = useState(2);
-  const [searchValue, setSearchValue] = React.useState('');
+  const [searchNameValue, setSearchNameValue] = React.useState('');
+  const [selectedStatusValue, setSelectedStatusValue] = React.useState('');
+
+  const [modalVisible, setModalVisible] = useState(false);
+  const [activateMultipleSearch, setActivateMultipleSearch] = useState(false);
+  const [filterStatusData, setFilterStatusData] = useState([
+    {name: 'Alive', isFiltering: false},
+    {name: 'Dead', isFiltering: false},
+    {name: 'unknown', isFiltering: false},
+  ]);
 
   React.useEffect(() => {
-    dispatch(fetchCharacters(page));
+    const payload = {
+      page: 1,
+      name: searchNameValue,
+      status: '',
+    };
+    dispatch(fetchCharacters(payload));
   }, []);
 
   React.useEffect(() => {
@@ -154,48 +109,82 @@ function Characters({navigation}) {
   const handleOnEndReached = () => {
     if (charactersState.status !== 'loading') {
       setPage(page + 1);
-      dispatch(fetchCharacters(page + 1));
+      // dispatch(fetchCharacters(page + 1 ));
     }
   };
 
   const handleOnRefresh = () => {
     if (charactersState.status !== 'loading') {
       setPage(1);
-      dispatch(fetchCharacters(1));
+      // dispatch(fetchCharacters(1));
     }
   };
 
   const handleOnchange = (el: any) => {
-    setSearchValue(el);
+    setSearchNameValue(el);
+
     if (el.length > 1) {
-      console.log('search');
+      const updatedSearch = dataList.filter((item: any) =>
+        item.name.toLowerCase().includes(el.toLowerCase()),
+      );
+      setDataList(updatedSearch);
     } else {
-      console.log('all');
+      setDataList(charactersState.data);
     }
+  };
+
+  const handleOnPressChecker = (item: any) => {
+    const itemToEdit = item;
+    const updatedData = [...filterStatusData].map(el => {
+      if (el.name === itemToEdit.name) {
+        el.isFiltering = !el.isFiltering;
+        const payload = {
+          page: 1,
+          name: searchNameValue,
+          status: itemToEdit.name,
+        };
+        dispatch(fetchCharacters(payload));
+      } else {
+        el.isFiltering = false;
+      }
+      return el;
+    });
+
+    setFilterStatusData(updatedData);
   };
 
   return (
     <View style={styles.container}>
-      {/* <Text onPress={() => navigation.navigate('CharacterDetails')}>
-        Characters
-      </Text>
-      <Text onPress={() => navigation.navigate('Settings')}>Sttings</Text>
-      <Text>Characters</Text>
-      <Text onPress={() => navigation.navigate('CharacterDetails')}>
-        settings
-      </Text>
-      <Text>Characters</Text> */}
+      <SearchInput
+        iconOnPress={() => {
+          setModalVisible(true), setActivateMultipleSearch(true);
+        }}
+        placeholder={'Search country'}
+        value={searchNameValue}
+        onChangeText={(text: string) => handleOnchange(text)}
+        style={{marginHorizontal: spacing.xxsmall}}
+      />
 
-      <View>
-        <SearchInput
-          placeholder={'Search country'}
-          value={searchValue}
-          onChangeText={(text: string) => handleOnchange(text)}
-        />
+      <View style={{flexDirection: 'row', marginLeft: spacing.xxxsmall}}>
+        {filterStatusData.map((item, index) => (
+          <View key={index}>
+            {item.isFiltering === true && (
+              <View
+                style={{
+                  marginRight: spacing.xxsmall,
+                  backgroundColor: colors.primaryColor,
+                  borderRadius: 2,
+                  paddingHorizontal: 2,
+                }}>
+                <H6 semiBold color={colors.white}>
+                  {item.name}
+                </H6>
+              </View>
+            )}
+          </View>
+        ))}
       </View>
-
       <FlatList
-        // data={dataList}
         data={formatFlatListGridData(dataList, numColumns)}
         numColumns={numColumns}
         renderItem={renderItem}
@@ -205,6 +194,28 @@ function Characters({navigation}) {
         refreshing={charactersState.status === 'loading'}
         keyExtractor={item => item.id.toString() ?? ''}
       />
+
+      <Modal
+        isVisible={modalVisible}
+        title={'Filter by status'}
+        onPressClose={() => {
+          setModalVisible(false), setActivateMultipleSearch(false);
+        }}>
+        <View style={{paddingHorizontal: spacing.xsmall}}>
+          {filterStatusData.map((item, index) => {
+            return (
+              <Checker
+                onPressChecker={() => {
+                  handleOnPressChecker(item), setSelectedStatusValue(item.name);
+                }}
+                key={index}
+                checker={item.isFiltering}
+                text={item.name}
+              />
+            );
+          })}
+        </View>
+      </Modal>
     </View>
   );
 }

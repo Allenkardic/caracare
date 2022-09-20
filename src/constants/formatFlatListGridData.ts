@@ -13,6 +13,8 @@ export default function formatFlatListGridData(
       key: `blank-${numberOfElementsLastRow}`,
       empty: true,
       id: 1001.022,
+      name: '',
+      status: 'Alive',
     });
     numberOfElementsLastRow++;
   }

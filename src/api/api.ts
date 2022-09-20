@@ -1,3 +1,4 @@
+import {string} from 'yup';
 import {characterType, characterResultType, EpisodeType} from '../types';
 
 const BASE_URL = 'https://rickandmortyapi.com/api/';
@@ -43,8 +44,10 @@ export type Characters = characterType;
  * https://docs.cloud.coinbase.com/exchange/reference/exchangerestapi_getproducttrades
  */
 // const history = async (page: number, count: number) =>
-const getCharacters = async (page: number) =>
-  get<Characters>(`character/?page=${page}`);
+const getCharacters = async (payload: any) =>
+  get<Characters>(
+    `character/?page=${payload.page}&name=${payload.name}&status=${payload.status}`,
+  );
 
 const getSingleCharacter = async (id: number) =>
   get<characterResultType>(`character/${id}`);
