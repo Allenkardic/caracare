@@ -1,15 +1,16 @@
 import React, {useState} from 'react';
 import {View, StyleSheet, Alert} from 'react-native';
 import {useSelector} from 'react-redux';
-import {Card, EmptyCard, FlatList, H3} from '../../components';
-import {formatFlatListGridData} from '../../constants';
+import {Card, EmptyCard, FlatList, SearchInput, H3} from '../../components';
+import {formatFlatListGridData, routes} from '../../constants';
 import {useAppDispatch, RootState} from '../../redux';
 import {fetchCharacters, addFavouriteCharacters} from '../../redux/slice';
+import stack from '../../constants/routes';
+
 import {characterResultType} from '../../types';
-// import {getCharacters} from '../../api'
-// const numColumns = 2;
 
 function Characters({navigation}) {
+  const {characterDetails} = stack.stack;
   // const [dataList, setDataList] = useState([
   //   {
   //     id: 1,
@@ -93,6 +94,8 @@ function Characters({navigation}) {
   const [grid, setGrid] = useState(true);
   const [page, setPage] = useState(1);
   const [numColumns, setNumColumns] = useState(2);
+  const [searchValue, setSearchValue] = React.useState('');
+
   React.useEffect(() => {
     dispatch(fetchCharacters(page));
   }, []);
@@ -110,12 +113,7 @@ function Characters({navigation}) {
 
     const updatedProduct: any = [...dataList].map((el: any) => {
       if (el.id === itemToEdit.id) {
-        // if count is let than 2 add count
         el.isFavourite = !el.isFavourite;
-        //  else {
-        //   // reset count if count is more than 2
-        //   el.likeCount = 0;
-        // }
       }
       return el;
     });
@@ -138,8 +136,7 @@ function Characters({navigation}) {
     return (
       <View style={styles.container}>
         <Card
-          onPress={() => console.log('pressed')}
-          // onPressLike={() => console.log('onPressLike')}
+          onPress={() => navigation.navigate(characterDetails, item.id)}
           onPressLike={() => handleOnPressLiked(item)}
           image={item.image}
           name={item.name}
@@ -168,6 +165,15 @@ function Characters({navigation}) {
     }
   };
 
+  const handleOnchange = (el: any) => {
+    setSearchValue(el);
+    if (el.length > 1) {
+      console.log('search');
+    } else {
+      console.log('all');
+    }
+  };
+
   return (
     <View style={styles.container}>
       {/* <Text onPress={() => navigation.navigate('CharacterDetails')}>
@@ -179,6 +185,14 @@ function Characters({navigation}) {
         settings
       </Text>
       <Text>Characters</Text> */}
+
+      <View>
+        <SearchInput
+          placeholder={'Search country'}
+          value={searchValue}
+          onChangeText={(text: string) => handleOnchange(text)}
+        />
+      </View>
 
       <FlatList
         // data={dataList}

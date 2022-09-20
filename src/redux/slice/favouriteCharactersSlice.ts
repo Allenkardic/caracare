@@ -1,5 +1,4 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
-import {api, Characters} from '../../api';
 import {characterResultType} from '../../types';
 
 interface CharactersState {
@@ -17,15 +16,6 @@ const initialState = {
 export const addFavouriteCharacters = createAsyncThunk(
   'favouriteCharacters',
   async (payload: characterResultType[]) => {
-    console.log(payload, 'payload');
-    // const response = await api.getCharacters(payload);
-    // const updatedData: characterResultType[] = [];
-    // response.parsedBody?.results.map((item: characterResultType) => {
-    //   updatedData.push({
-    //     ...item,
-    //     isFavourite: false,
-    //   });
-    // });
     return payload as characterResultType[];
   },
 );

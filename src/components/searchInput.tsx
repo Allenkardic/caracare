@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   View,
+  Pressable,
 } from 'react-native';
 
 import {borderRadius, colors, HP, spacing} from '../constants';
@@ -31,11 +32,7 @@ interface IProps extends TextInputProps {
   icon?: string;
   iconStyle?: ViewStyle;
   iconColor?: string;
-  inputName?: string | undefined;
-  focusedName?: string | undefined;
   iconOnPress?: any;
-  onFocus?: any;
-  onBlur?: any;
 }
 
 export default function SearchInput(props: IProps) {
@@ -54,15 +51,12 @@ export default function SearchInput(props: IProps) {
     iconOnPress,
     note,
     suffix,
-    inputName,
-    focusedName,
-    onFocus,
-    onBlur,
+
     ...others
   } = props;
 
   const appTheme = useTheme();
-  const styles = useStyles({inputName, focusedName, appTheme, error});
+  const styles = useStyles({appTheme});
 
   return (
     <View style={styles.container}>
@@ -81,21 +75,17 @@ export default function SearchInput(props: IProps) {
           placeholder={placeholder}
           placeholderTextColor={colors.grey}
           secureTextEntry={secureTextEntry}
-          onFocus={onFocus}
-          onBlur={onBlur}
           {...others}
         />
       </View>
+      <Pressable>
+        <Icon name={""}
+      </Pressable>
     </View>
   );
 }
 
-const useStyles = (props: {
-  appTheme: any;
-  error?: string;
-  inputName?: string;
-  focusedName?: string;
-}) =>
+const useStyles = (props: {appTheme: any}) =>
   StyleSheet.create({
     container: {
       paddingVertical: spacing.mini,
@@ -104,7 +94,9 @@ const useStyles = (props: {
       width: '100%',
       borderRadius: borderRadius.round,
       flexDirection: 'row',
-      backgroundColor: props.appTheme.dark ? colors.black : colors.white,
+      backgroundColor: props.appTheme.dark
+        ? colors.greyVariantThree
+        : colors.white,
       height: HP('5%'),
       alignItems: 'center',
       justifyContent: 'center',

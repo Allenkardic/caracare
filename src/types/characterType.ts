@@ -21,6 +21,7 @@ export type characterResultType = {
   url: string;
   created: string;
   isFavourite?: boolean;
+  numberOfEpisode?: string;
 };
 
 export type characterType = {

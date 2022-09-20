@@ -19,11 +19,15 @@ interface IProps {
   origin: string;
   firstEpisode?: string;
   firstEpisodeDate?: string;
+  lastEpisode?: string;
+  lastEpisodeDate?: string;
   status: 'Alive' | 'Dead' | 'unknown';
   grid: boolean;
   emptyGridCard?: boolean;
   numColumns: number;
   isFavourite?: boolean;
+  characterDetailScreen?: boolean;
+  numberOfEpisode?: string;
 }
 
 const cardBorderRadius = borderRadius.small;
@@ -38,14 +42,18 @@ export default function Card(props: IProps) {
     origin,
     firstEpisode,
     firstEpisodeDate,
+    lastEpisode,
+    lastEpisodeDate,
     status,
     grid,
     emptyGridCard,
     numColumns,
     isFavourite,
+    characterDetailScreen,
+    numberOfEpisode,
   } = props;
   const theme = useTheme();
-  const styles = useStyles({theme, grid, numColumns});
+  const styles = useStyles({theme, grid, numColumns, characterDetailScreen});
 
   if (grid) {
     return (
@@ -88,7 +96,12 @@ export default function Card(props: IProps) {
   } else {
     return (
       <Pressable onPress={onPress} style={[styles.container, {...style}]}>
-        <View style={styles.imgContainer}>
+        <View
+          style={
+            characterDetailScreen
+              ? styles.imgContainerDeatails
+              : styles.imgContainer
+          }>
           <Image
             source={{
               uri:
@@ -100,39 +113,83 @@ export default function Card(props: IProps) {
         <View style={styles.content}>
           <View style={styles.contentOne}>
             <H3 semiBold>{name}</H3>
-            <View style={styles.geneContainer}>
-              <H6>{species},</H6>
-              <H6 style={styles.origin}>{origin}</H6>
-              <ActivityLabel text={status} />
-            </View>
-            <View style={styles.episodeContainer}>
-              <H6>Episode: </H6>
-              <H6>{firstEpisode}</H6>
-              <View style={styles.dot} />
-              <H6>{firstEpisodeDate}</H6>
-            </View>
+            {characterDetailScreen ? (
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  paddingRight: spacing.xxsmall,
+                }}>
+                <View style={styles.geneContainer}>
+                  <H6>{species},</H6>
+                  <H6 style={styles.origin}>{origin}</H6>
+                </View>
+                <ActivityLabel text={status} />
+              </View>
+            ) : (
+              <View style={styles.geneContainer}>
+                <H6>{species},</H6>
+                <H6 style={styles.origin}>{origin}</H6>
+                <ActivityLabel text={status} />
+              </View>
+            )}
+
+            {characterDetailScreen && (
+              <View>
+                <View style={styles.episodeContainer}>
+                  <H6>first episode: </H6>
+                  <H6>{firstEpisode}</H6>
+                  <View style={styles.dot} />
+                  <H6>{firstEpisodeDate}</H6>
+                </View>
+                <View style={[styles.episodeContainer]}>
+                  <H6>last episode: </H6>
+                  <H6>{lastEpisode}</H6>
+                  <View style={styles.dot} />
+                  <H6>{lastEpisodeDate}</H6>
+                </View>
+
+                <H6 style={styles.episodeContainer}>
+                  total number of episode: {numberOfEpisode}
+                </H6>
+              </View>
+            )}
           </View>
-          <View style={styles.contentTwo}>
-            <Icon
-              onPress={onPressLike}
-              name={isFavourite ? 'heart' : 'heart-outline'}
-              size={HP('5%')}
-              color={colors.errorBackground}
-            />
-          </View>
+          {!characterDetailScreen && (
+            <View style={styles.contentTwo}>
+              <Icon
+                onPress={onPressLike}
+                name={isFavourite ? 'heart' : 'heart-outline'}
+                size={HP('5%')}
+                color={colors.errorBackground}
+              />
+            </View>
+          )}
         </View>
       </Pressable>
     );
   }
 }
 
-const useStyles = (props: {theme: any; grid: boolean; numColumns: number}) =>
+const useStyles = (props: {
+  theme: any;
+  grid: boolean;
+  numColumns: number;
+  characterDetailScreen?: boolean;
+}) =>
   StyleSheet.create({
     container: {
       marginBottom: spacing.xsmall,
     },
     imgContainer: {
       height: HP('20%'),
+      width: '100%',
+      borderTopLeftRadius: cardBorderRadius,
+      borderTopRightRadius: cardBorderRadius,
+    },
+
+    imgContainerDeatails: {
+      height: HP('50%'),
       width: '100%',
       borderTopLeftRadius: cardBorderRadius,
       borderTopRightRadius: cardBorderRadius,
@@ -145,7 +202,7 @@ const useStyles = (props: {theme: any; grid: boolean; numColumns: number}) =>
       paddingTop: spacing.xxsmall,
     },
     contentOne: {
-      width: props.grid ? '100%' : '70%',
+      width: props.grid || props.characterDetailScreen ? '100%' : '70%',
     },
     geneContainer: {
       flexDirection: 'row',
@@ -172,6 +229,7 @@ const useStyles = (props: {theme: any; grid: boolean; numColumns: number}) =>
     episodeContainer: {
       flexDirection: props.grid ? 'column' : 'row',
       alignItems: props.grid ? 'flex-start' : 'center',
+      marginTop: spacing.xxsmall,
     },
     dot: {
       backgroundColor: colors.grey,

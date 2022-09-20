@@ -41,7 +41,8 @@ function OnboardingRoutes() {
       />
       <Stack.Screen
         options={({navigation}) => ({
-          headerShown: false,
+          headerShown: true,
+          title: 'Character Details',
         })}
         name={characterDetails}
         component={CharacterDetails}
