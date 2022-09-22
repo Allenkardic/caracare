@@ -1,6 +1,6 @@
-import { StyleSheet, Platform } from 'react-native';
+import {StyleSheet, Platform} from 'react-native';
 
-import { colors, fontFamily, fontFamilySemiBold, layout } from '../constants';
+import {colors, fontFamily, fontFamilySemiBold, layout} from '../constants';
 
 export default StyleSheet.create({
   textInput: {
@@ -26,13 +26,13 @@ export default StyleSheet.create({
   w170: {
     width: layout.width / 2.3,
   },
-  headerBackTitleStyle: { fontFamily: fontFamilySemiBold },
-  headerTitleStyle: { fontFamily: fontFamilySemiBold },
+  headerBackTitleStyle: {fontFamily: fontFamilySemiBold},
+  headerTitleStyle: {fontFamily: fontFamilySemiBold},
   tabBarInfoContainer: {
     ...Platform.select({
       ios: {
         shadowColor: 'black',
-        shadowOffset: { width: 0, height: -3 },
+        shadowOffset: {width: 0, height: -3},
         shadowOpacity: 0.1,
         shadowRadius: 3,
       },

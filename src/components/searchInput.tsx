@@ -12,7 +12,7 @@ import {
   Pressable,
 } from 'react-native';
 
-import {borderRadius, colors, HP, spacing} from '../constants';
+import {borderRadius, colors, spacing} from '../constants';
 import theme from '../styles';
 
 import Icon from './icon';

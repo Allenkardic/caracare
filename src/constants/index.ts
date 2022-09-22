@@ -10,9 +10,6 @@ export {default as routes} from './routes';
 
 export {default as spacing} from './spacing';
 export {default as borderRadius} from './borderRadius';
-export {default as boxWithSmallShadow} from './boxWithSmallShadow';
-export {default as boxWithShadow} from './boxWithShadow';
-export {default as boxWithBigShadow} from './boxWithBigShadow';
 export {default as fontSize} from './fontSize';
 export {default as ellipsis} from './ellipsis';
 export {default as formatFlatListGridData} from './formatFlatListGridData';
