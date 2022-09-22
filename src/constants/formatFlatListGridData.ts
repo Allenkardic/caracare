@@ -1,7 +1,4 @@
-export default function formatFlatListGridData(
-  data: any[],
-  numColumns: number,
-) {
+export default function formatFlatListGridData(data: any, numColumns: number) {
   const numberOfFullRows = Math.floor(data?.length / numColumns);
 
   let numberOfElementsLastRow = data?.length - numberOfFullRows * numColumns;
@@ -10,7 +7,7 @@ export default function formatFlatListGridData(
     numberOfElementsLastRow !== 0
   ) {
     data.push({
-      key: `blank-${numberOfElementsLastRow}`,
+      // key: `blank-${numberOfElementsLastRow}`,
       empty: true,
       id: 1001.022,
       name: '',

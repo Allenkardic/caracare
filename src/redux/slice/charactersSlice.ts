@@ -2,7 +2,7 @@ import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
 import {api, Characters} from '../../api';
 import {characterResultType} from '../../types';
 
-import {statusFilter} from '../../constants';
+import {getNextPageFromUrl} from '../../constants';
 
 interface CharactersState {
   data: characterResultType[];
@@ -26,8 +26,25 @@ export const fetchCharacters = createAsyncThunk(
       updatedData.push({
         ...item,
         isFavourite: false,
+        nextScreenNav: getNextPageFromUrl(
+          response.parsedBody?.info?.next ?? '',
+        ),
       });
     });
+
+    // let nextpage = response.parsedBody?.info.next;
+
+    // nextpage = getSecondPart(nextpage);
+
+    // console.log(nextpage, 'next');
+    // const newResponse = {
+    //   nextpage,
+    //   data: updatedData,
+    // };
+
+    // console.log(newResponse.data, 'jj');
+
+    // return newResponse;
 
     return updatedData as characterResultType[];
   },
@@ -36,14 +53,18 @@ export const fetchCharacters = createAsyncThunk(
 const charactersSlice = createSlice({
   name: 'characters',
   initialState,
-  reducers: {},
+  reducers: {
+    reset: state => {
+      Object.assign(state, initialState);
+    },
+  },
   extraReducers: builder => {
     builder.addCase(fetchCharacters.pending, state => {
       state.status = 'loading';
     });
     builder.addCase(fetchCharacters.fulfilled, (state, action) => {
       state.status = 'succeeded';
-      state.data = action.payload || [];
+      state.data = state.data.concat(action.payload);
     });
     builder.addCase(fetchCharacters.rejected, (state, action) => {
       state.status = 'failed';
@@ -52,4 +73,5 @@ const charactersSlice = createSlice({
   },
 });
 
+export const resetCharacters = charactersSlice.actions.reset;
 export const charactersSliceReducer = charactersSlice.reducer;

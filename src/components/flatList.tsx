@@ -12,7 +12,7 @@ interface IProps {
   renderItem: any;
   refreshing: boolean;
   showsVerticalScrollIndicator?: boolean;
-  keyExtractor: (item: any) => any;
+  keyExtractor: (_: any, index: number) => any;
   emptyListText: string;
   listHeader?: any;
   numColumns?: number;
@@ -45,6 +45,7 @@ export default function SJFlatList(props: IProps) {
       refreshing={refreshing}
       onRefresh={onRefresh}
       onEndReached={onEndReached}
+      // onEndReachedThreshold={0.5}
       keyExtractor={keyExtractor}
       renderItem={renderItem}
       entering={FadeIn.duration(300)}

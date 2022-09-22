@@ -22,6 +22,7 @@ export type characterResultType = {
   created: string;
   isFavourite?: boolean;
   numberOfEpisode?: string;
+  nextScreenNav?: string;
 };
 
 export type characterType = {

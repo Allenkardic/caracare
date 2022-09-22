@@ -37,8 +37,6 @@ export const fetchSingleCharacter = createAsyncThunk(
       lastEpisode: lastEpisodeResponse.parsedBody,
     };
 
-    console.log(response.parsedBody?.episode.length, 'lenght');
-
     let target = {
       ...response.parsedBody,
     };
