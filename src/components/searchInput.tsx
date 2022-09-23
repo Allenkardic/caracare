@@ -72,7 +72,7 @@ export default function SearchInput(props: IProps) {
           )}
           <RNTextInput
             autoCapitalize="none"
-            style={{...theme.textInput, ...styles.textInput}}
+            style={{...styles.textInput}}
             onChangeText={onChangeText}
             value={value}
             keyboardType={keyboardType || 'default'}

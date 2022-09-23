@@ -1,11 +1,11 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
 import {api} from '../../api';
-import {characterResultType} from '../../types';
+import {CharacterResultType} from '../../types';
 
 import {getNextPageFromUrl} from '../../constants';
 
 interface CharactersState {
-  data: characterResultType[];
+  data: CharacterResultType[];
   status: 'idle' | 'loading' | 'succeeded' | 'failed';
   error: any;
 }
@@ -20,9 +20,9 @@ export const fetchCharacters = createAsyncThunk(
   'characters',
   async (payload: any) => {
     const response = await api.getCharacters(payload);
-    const updatedData: characterResultType[] = [];
+    const updatedData: CharacterResultType[] = [];
 
-    response.parsedBody?.results.map((item: characterResultType) => {
+    response.parsedBody?.results.map((item: CharacterResultType) => {
       updatedData.push({
         ...item,
         isFavourite: false,
@@ -32,7 +32,7 @@ export const fetchCharacters = createAsyncThunk(
       });
     });
 
-    return updatedData as characterResultType[];
+    return updatedData as CharacterResultType[];
   },
 );
 

@@ -1,10 +1,10 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
 import {api} from '../../api';
-import {characterResultType} from '../../types';
+import {CharacterResultType} from '../../types';
 import {getIdFromUrl} from '../../constants';
 
 interface CharacterState {
-  data: characterResultType;
+  data: CharacterResultType;
   status: 'idle' | 'loading' | 'succeeded' | 'failed';
   error: any;
 }
@@ -63,7 +63,7 @@ export const fetchSingleCharacter = createAsyncThunk(
 
     const merge = Object.assign(target, newRecord);
 
-    return merge as characterResultType;
+    return merge as CharacterResultType;
   },
 );
 

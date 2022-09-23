@@ -1,13 +1,16 @@
-export type characterStatus = 'Alive' | 'Dead' | 'unknown';
-export type characterGender = 'Female' | 'Male' | 'Genderless' | 'unknown';
-
-export type characterResultType = {
+export type CharacterStatus = 'Alive' | 'Dead' | 'unknown';
+export type CharacterGender = 'Female' | 'Male' | 'Genderless' | 'unknown';
+export type AvailableStatusType = {
+  name: CharacterStatus;
+  isFiltering: boolean;
+};
+export type CharacterResultType = {
   id: number;
   name: string;
-  status: characterStatus;
+  status: CharacterStatus;
   species: string;
   type: string;
-  gender: characterGender;
+  gender: CharacterGender;
   origin: {
     name: string;
     url: string;
@@ -25,31 +28,12 @@ export type characterResultType = {
   nextScreenNav?: string;
 };
 
-export type characterType = {
+export type CharacterType = {
   info: {
     count: number;
     pages: number;
     next: string;
     prev: string;
   };
-  results: characterResultType[];
-  // id: number;
-  // name: string;
-  // status: characterStatus;
-  // species: string;
-  // type: string;
-  // gender: characterGender;
-  // origin: {
-  //   name: string;
-  //   url: string;
-  // };
-  // location: {
-  //   name: string;
-  //   url: string;
-  // };
-  // image: string;
-  // episode: any[];
-  // url: string;
-  // created: string;
-  // isFavourite: boolean;
+  results: CharacterResultType[];
 };

@@ -1,8 +1,8 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
-import {characterResultType} from '../../types';
+import {CharacterResultType} from '../../types';
 
 interface CharactersState {
-  data: characterResultType[];
+  data: CharacterResultType[];
   status: 'idle' | 'loading' | 'succeeded' | 'failed';
   error: any;
 }
@@ -15,8 +15,8 @@ const initialState = {
 
 export const addFavouriteCharacters = createAsyncThunk(
   'favouriteCharacters',
-  async (payload: characterResultType[]) => {
-    return payload as characterResultType[];
+  async (payload: CharacterResultType[]) => {
+    return payload as CharacterResultType[];
   },
 );
 

@@ -1,8 +1,8 @@
 import React from 'react';
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, Platform} from 'react-native';
 import {useSelector} from 'react-redux';
 import {Card, FlatList} from '../../components';
-import {formatFlatListGridData} from '../../constants';
+import {formatFlatListGridData, spacing} from '../../constants';
 import {useAppDispatch, RootState} from '../../redux';
 import {addFavouriteCharacters} from '../../redux/slice';
 
@@ -63,6 +63,8 @@ function Favourite() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+
+    paddingTop: Platform.OS === 'android' ? spacing.large : spacing.xxsmall,
   },
 });
 

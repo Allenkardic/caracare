@@ -45,7 +45,6 @@ export default function SJFlatList(props: IProps) {
       refreshing={refreshing}
       onRefresh={onRefresh}
       onEndReached={onEndReached}
-      // onEndReachedThreshold={0.5}
       keyExtractor={keyExtractor}
       renderItem={renderItem}
       entering={FadeIn.duration(300)}

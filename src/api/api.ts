@@ -1,5 +1,5 @@
 import {string} from 'yup';
-import {characterType, characterResultType, EpisodeType} from '../types';
+import {CharacterType, CharacterResultType, EpisodeType} from '../types';
 
 const BASE_URL = 'https://rickandmortyapi.com/api/';
 
@@ -37,7 +37,7 @@ async function get<T>(
 }
 
 // export type Characters = characterType[];
-export type Characters = characterType;
+export type Characters = CharacterType;
 
 /**
  * Docs
@@ -50,7 +50,7 @@ const getCharacters = async (payload: any) =>
   );
 
 const getSingleCharacter = async (id: number) =>
-  get<characterResultType>(`character/${id}`);
+  get<CharacterResultType>(`character/${id}`);
 
 const getFirstEpisode = async (id: number) => get<EpisodeType>(`episode/${id}`);
 

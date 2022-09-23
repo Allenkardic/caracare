@@ -1,7 +1,8 @@
-import React, {useState} from 'react';
-import {View, StyleSheet} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {View, StyleSheet, Platform} from 'react-native';
 import {NavigationProp, ParamListBase} from '@react-navigation/native';
 import {useSelector} from 'react-redux';
+import stack from '../../constants/routes';
 import {
   Card,
   EmptyCard,
@@ -18,12 +19,9 @@ import {
   addFavouriteCharacters,
   resetCharacters,
 } from '../../redux/slice';
-import stack from '../../constants/routes';
-
-import {characterResultType} from '../../types';
+import {CharacterResultType, AvailableStatusType} from '../../types';
 
 interface IProps {
-  // onPress: (event: GestureResponderEvent) => void;
   navigation: NavigationProp<ParamListBase>;
 }
 
@@ -33,21 +31,20 @@ function Characters({navigation}: IProps) {
   const dispatch = useAppDispatch();
   const charactersState = useSelector((state: RootState) => state.characters);
   const settingsState = useSelector((state: RootState) => state.settings);
-  const [dataList, setDataList] = useState([]);
-  const [grid, setGrid] = useState(true);
-  const [page, setPage] = useState(1);
-  const [numColumns, setNumColumns] = useState(2);
-  const [searchNameValue, setSearchNameValue] = React.useState('');
-  const [selectedStatusValue, setSelectedStatusValue] = React.useState('');
+  const [dataList, setDataList] = useState<CharacterResultType[]>([]);
+  const [searchNameValue, setSearchNameValue] = useState('');
+  const [selectedStatusValue, setSelectedStatusValue] = useState('');
 
   const [modalVisible, setModalVisible] = useState(false);
-  const [filterStatusData, setFilterStatusData] = useState([
+  const [filterStatusData, setFilterStatusData] = useState<
+    AvailableStatusType[]
+  >([
     {name: 'Alive', isFiltering: false},
     {name: 'Dead', isFiltering: false},
     {name: 'unknown', isFiltering: false},
   ]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const payload = {
       page: '1',
       name: searchNameValue,
@@ -57,7 +54,7 @@ function Characters({navigation}: IProps) {
     dispatch(fetchCharacters(payload));
   }, [searchNameValue]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (charactersState.status === 'failed') {
       //  no rsult
     } else {
@@ -65,22 +62,29 @@ function Characters({navigation}: IProps) {
     }
   }, [charactersState]);
 
-  const handleOnPressLiked = (item: any) => {
-    const itemToEdit = item;
+  function number() {
+    let number: number;
+    if (settingsState.data.isCharacterScreenGrid) {
+      number = 2;
+    } else {
+      number = 1;
+    }
+    return number;
+  }
 
+  const handleOnPressLiked = (item: CharacterResultType) => {
+    const itemToEdit = item;
+    // update the list array to the item that was liked
     const updatedProduct: any = [...dataList].map((el: any) => {
       if (el.id === itemToEdit.id) {
         el.isFavourite = !el.isFavourite;
       }
       return el;
     });
-
     setDataList(updatedProduct);
-
     const allLikedCharacters = updatedProduct.filter((item: any) => {
       return item.isFavourite === true;
     });
-
     dispatch(addFavouriteCharacters(allLikedCharacters));
   };
 
@@ -90,7 +94,7 @@ function Characters({navigation}: IProps) {
     }
 
     return (
-      <View style={styles.container}>
+      <View style={styles.cardContainer}>
         <Card
           onPress={() => navigation.navigate(characterDetails, item.id)}
           onPressLike={() => handleOnPressLiked(item)}
@@ -101,7 +105,7 @@ function Characters({navigation}: IProps) {
           status={item.status}
           isFavourite={item.isFavourite}
           grid={settingsState.data.isCharacterScreenGrid}
-          numColumns={numColumns}
+          numColumns={number()}
         />
       </View>
     );
@@ -122,7 +126,7 @@ function Characters({navigation}: IProps) {
   const handleOnRefresh = () => {
     if (charactersState.status !== 'loading') {
       const payload = {
-        page: 1,
+        page: '1',
         name: searchNameValue,
         status: selectedStatusValue,
       };
@@ -130,10 +134,10 @@ function Characters({navigation}: IProps) {
     }
   };
 
-  const handleOnchange = (el: any) => {
+  const handleOnchange = (el: string) => {
     setSearchNameValue(el);
     if (el.length > 1) {
-      const updatedSearch = dataList.filter((item: any) =>
+      const updatedSearch = dataList.filter((item: CharacterResultType) =>
         item.name.toLowerCase().includes(el.toLowerCase()),
       );
       setDataList(updatedSearch);
@@ -142,7 +146,7 @@ function Characters({navigation}: IProps) {
     }
   };
 
-  const handleOnPressChecker = (item: any) => {
+  const handleOnPressChecker = (item: AvailableStatusType) => {
     const itemToEdit = item;
     const updatedData = [...filterStatusData].map(el => {
       if (el.name === itemToEdit.name) {
@@ -163,16 +167,6 @@ function Characters({navigation}: IProps) {
     setFilterStatusData(updatedData);
   };
 
-  function number() {
-    let number: number;
-    if (settingsState.data.isCharacterScreenGrid) {
-      number = 2;
-    } else {
-      number = 1;
-    }
-
-    return number;
-  }
   return (
     <View style={styles.container}>
       <SearchInput
@@ -183,7 +177,7 @@ function Characters({navigation}: IProps) {
         value={searchNameValue}
         onChangeText={(text: string) => handleOnchange(text)}
         returnKeyType="search"
-        autoFocus={true}
+        autoFocus={false}
         style={{marginHorizontal: spacing.xxsmall}}
       />
 
@@ -191,13 +185,7 @@ function Characters({navigation}: IProps) {
         {filterStatusData.map((item, index) => (
           <View key={index}>
             {item.isFiltering === true && (
-              <View
-                style={{
-                  marginRight: spacing.xxsmall,
-                  backgroundColor: colors.primaryColor,
-                  borderRadius: 2,
-                  paddingHorizontal: 2,
-                }}>
+              <View style={styles.searchTitle}>
                 <H6 semiBold color={colors.white}>
                   {item.name}
                 </H6>
@@ -220,7 +208,6 @@ function Characters({navigation}: IProps) {
           }}
         />
       )}
-      {}
 
       <Modal
         isVisible={modalVisible}
@@ -228,7 +215,7 @@ function Characters({navigation}: IProps) {
         onPressClose={() => {
           setModalVisible(false);
         }}>
-        <View style={{paddingHorizontal: spacing.xsmall}}>
+        <View style={styles.modalContent}>
           {filterStatusData.map((item, index) => {
             return (
               <Checker
@@ -250,10 +237,23 @@ function Characters({navigation}: IProps) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    paddingTop: Platform.OS === 'android' ? spacing.large : spacing.xxsmall,
+  },
+  cardContainer: {
+    flex: 1,
   },
   content: {
     flexDirection: 'row',
     marginLeft: spacing.xxxsmall,
+  },
+  searchTitle: {
+    marginRight: spacing.xxsmall,
+    backgroundColor: colors.primaryColor,
+    borderRadius: 2,
+    paddingHorizontal: 2,
+  },
+  modalContent: {
+    paddingHorizontal: spacing.xsmall,
   },
 });
 

@@ -7,7 +7,7 @@ import {Favourite} from '../../../screens/favourite';
 const Stack = createNativeStackNavigator();
 function OnboardingRoutes() {
   const theme = useTheme();
-  const {onboarding, favourite} = stack.stack;
+  const {favourite} = stack.stack;
   return (
     <Stack.Navigator
       screenOptions={{
@@ -16,7 +16,7 @@ function OnboardingRoutes() {
           backgroundColor: theme.colors.background,
         },
       }}
-      initialRouteName={onboarding}>
+      initialRouteName={favourite}>
       <Stack.Screen
         options={({navigation}) => ({
           headerShown: true,

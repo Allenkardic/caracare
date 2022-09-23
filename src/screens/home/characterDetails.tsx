@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import {Text, ScrollView, Alert} from 'react-native';
+import {ScrollView, Alert, StyleSheet, Platform} from 'react-native';
 import {useSelector} from 'react-redux';
-import {Card, H3} from '../../components';
+import {Card} from '../../components';
+import {spacing} from '../../constants';
 import {useAppDispatch, RootState} from '../../redux';
 import {fetchSingleCharacter} from '../../redux/slice';
-import stack from '../../constants/routes';
-const {characterDetails} = stack.stack;
+import {CharacterResultType} from '../../types';
 
 interface IProps {
   route?: any;
@@ -17,7 +17,8 @@ function CharacterDetails({route: {params}}: IProps) {
     (state: RootState) => state.singleCharacter,
   );
 
-  const [singleCharacterData, setSingleCharacterData] = useState({});
+  const [singleCharacterData, setSingleCharacterData] =
+    useState<CharacterResultType>({});
 
   useEffect(() => {
     dispatch(fetchSingleCharacter(params));
@@ -31,19 +32,8 @@ function CharacterDetails({route: {params}}: IProps) {
     }
   }, [singleCharacterState]);
 
-  // console.log(singleCharacterData?.image, 'image');
-  // console.log(singleCharacterData?.name, 'name');
-  // console.log(singleCharacterData?.species, 'species');
-  // console.log(singleCharacterData?.origin?.name, 'origin');
-  // console.log(singleCharacterData?.status, 'status');
-  // console.log(
-  //   singleCharacterData?.status &&
-  //     singleCharacterData?.episode[0]?.firstEpisode?.episode,
-  //   'first episode',
-  // );
-
   return (
-    <ScrollView>
+    <ScrollView style={styles.container}>
       <Card
         onPress={() => {}}
         characterDetailScreen
@@ -75,5 +65,10 @@ function CharacterDetails({route: {params}}: IProps) {
     </ScrollView>
   );
 }
+const styles = StyleSheet.create({
+  container: {
+    paddingTop: Platform.OS === 'android' ? spacing.large : spacing.xxsmall,
+  },
+});
 
 export default CharacterDetails;
