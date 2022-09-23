@@ -2,8 +2,6 @@ import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
 import {api} from '../../api';
 import {characterResultType} from '../../types';
 import {getIdFromUrl} from '../../constants';
-import {fetchFirstEpisode} from '../../redux/slice';
-import {useAppDispatch, RootState} from '../../redux';
 
 interface CharacterState {
   data: characterResultType;
