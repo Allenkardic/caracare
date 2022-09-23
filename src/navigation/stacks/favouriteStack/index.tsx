@@ -2,15 +2,12 @@ import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {useTheme} from '@react-navigation/native';
 import stack from '../../../constants/routes';
-
 import {Favourite} from '../../../screens/favourite';
-
-const {favourite} = stack.stack;
 
 const Stack = createNativeStackNavigator();
 function OnboardingRoutes() {
   const theme = useTheme();
-  const {onboarding} = stack.stack;
+  const {onboarding, favourite} = stack.stack;
   return (
     <Stack.Navigator
       screenOptions={{

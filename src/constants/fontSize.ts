@@ -1,7 +1,6 @@
 import {RFValue} from 'react-native-responsive-fontsize';
 
 export const SIZES = {
-  //font sizes
   mini: 8,
   base: 10,
   small: 12,

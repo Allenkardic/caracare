@@ -1,27 +1,21 @@
 import React from 'react';
-
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {getFocusedRouteNameFromRoute, useTheme} from '@react-navigation/native';
 import {View, StyleSheet, TouchableOpacity, Platform} from 'react-native';
 import {RFValue} from 'react-native-responsive-fontsize';
-
-import {Icon, Text} from '../components';
-import {HP, fontSize, colors as conColors} from '../constants';
-
 import HomeRoutes from './stacks/homeStack';
 import FavouriteRoutes from './stacks/favouriteStack';
 import stack from '../constants/routes';
-
-const {home, favourite} = stack.stack;
+import {Icon, Text} from '../components';
+import {HP, fontSize, colors as conColors} from '../constants';
 
 const Tab = createBottomTabNavigator();
-
+const {home, favourite} = stack.stack;
 function CustomeIcon(props: any) {
   const {colors} = useTheme();
   const {
     onPress,
     item: {label, activeIcon, inactiveIcon},
-
     accessibilityState: {selected},
   } = props;
 

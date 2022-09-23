@@ -1,11 +1,8 @@
 import React from 'react';
-
 import {useTheme} from '@react-navigation/native';
 import {TextStyle, GestureResponderEvent} from 'react-native';
 import Ionicon from 'react-native-vector-icons/Ionicons';
-
-import {HP} from '../constants';
-import colors from '../constants/colors';
+import {HP, colors} from '../constants';
 
 interface IProps {
   name: string;

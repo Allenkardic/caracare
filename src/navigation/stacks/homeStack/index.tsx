@@ -3,19 +3,12 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {useTheme} from '@react-navigation/native';
 import stack from '../../../constants/routes';
 import {RightNavigationIcon} from '../../../components';
-import {
-  Characters,
-  CharacterDetails,
-  AddCharacter,
-  Settings,
-} from '../../../screens/home';
-
-const {home, characterDetails, addCharacter, settings} = stack.stack;
+import {Characters, CharacterDetails, Settings} from '../../../screens/home';
 
 const Stack = createNativeStackNavigator();
-function OnboardingRoutes() {
+function HomeRoutes() {
   const theme = useTheme();
-  const {onboarding} = stack.stack;
+  const {home, characterDetails, settings} = stack.stack;
   return (
     <Stack.Navigator
       screenOptions={{
@@ -47,14 +40,7 @@ function OnboardingRoutes() {
         name={characterDetails}
         component={CharacterDetails}
       />
-      <Stack.Screen
-        options={({navigation}) => ({
-          headerShown: true,
-          title: 'Add Characters',
-        })}
-        name={addCharacter}
-        component={AddCharacter}
-      />
+
       <Stack.Screen
         options={({navigation}) => ({
           headerShown: true,
@@ -67,4 +53,4 @@ function OnboardingRoutes() {
   );
 }
 
-export default OnboardingRoutes;
+export default HomeRoutes;
