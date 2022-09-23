@@ -1,5 +1,5 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
-import {api, Characters} from '../../api';
+import {api} from '../../api';
 import {characterResultType} from '../../types';
 
 import {getNextPageFromUrl} from '../../constants';
@@ -31,20 +31,6 @@ export const fetchCharacters = createAsyncThunk(
         ),
       });
     });
-
-    // let nextpage = response.parsedBody?.info.next;
-
-    // nextpage = getSecondPart(nextpage);
-
-    // console.log(nextpage, 'next');
-    // const newResponse = {
-    //   nextpage,
-    //   data: updatedData,
-    // };
-
-    // console.log(newResponse.data, 'jj');
-
-    // return newResponse;
 
     return updatedData as characterResultType[];
   },

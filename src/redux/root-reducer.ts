@@ -2,8 +2,6 @@ import {combineReducers} from '@reduxjs/toolkit';
 import {
   charactersSliceReducer,
   favouriteCharactersSliceReducer,
-  firstEpisodeSliceReducer,
-  lastEpisodeSliceReducer,
   singleCharacterSliceReducer,
   settingsSliceReducer,
 } from './slice';
@@ -11,8 +9,6 @@ import {
 const rootReducer = combineReducers({
   characters: charactersSliceReducer,
   favouriteCharacters: favouriteCharactersSliceReducer,
-  firstEpisode: firstEpisodeSliceReducer,
-  lastEpisode: lastEpisodeSliceReducer,
   singleCharacter: singleCharacterSliceReducer,
   settings: settingsSliceReducer,
 });
