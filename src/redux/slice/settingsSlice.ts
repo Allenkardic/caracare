@@ -1,5 +1,4 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
-import {api, Characters} from '../../api';
 import {SettingsType} from '../../types';
 
 interface SettingsState {
@@ -10,7 +9,7 @@ interface SettingsState {
 
 const initialState = {
   data: {
-    appMode: 'dark',
+    theme: 'light',
     isCharacterScreenGrid: false,
   },
   status: 'idle',

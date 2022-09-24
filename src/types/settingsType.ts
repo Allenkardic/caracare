@@ -1,4 +1,4 @@
 export type SettingsType = {
-  appMode: string;
+  theme: string;
   isCharacterScreenGrid: boolean;
 };
