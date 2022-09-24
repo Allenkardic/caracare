@@ -24,7 +24,11 @@ export default function Checker(props: IProps) {
   return (
     <View style={[styles.container, {...style}]}>
       <Pressable onPress={onPressChecker} style={styles.checker}>
-        <Icon name={'checkmark'} size={22} color={colors.white} />
+        <Icon
+          name={'checkmark'}
+          size={22}
+          color={!!checker ? colors.white : 'transparent'}
+        />
       </Pressable>
       <H6 onPress={onPressText}>{text}</H6>
     </View>

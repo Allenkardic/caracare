@@ -20,3 +20,6 @@ A user can add a character to favourite by clicking on the like icon, liked char
 <br>
 A user can click on a character on the character list to view the character details
 <br>
+A user can switch between light and dark them on setting screen
+<br>
+A user can set the character list screen to list view or grid view
