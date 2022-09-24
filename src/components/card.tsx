@@ -114,12 +114,7 @@ export default function Card(props: IProps) {
           <View style={styles.contentOne}>
             <H3 semiBold>{name}</H3>
             {characterDetailScreen ? (
-              <View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  paddingRight: spacing.xxsmall,
-                }}>
+              <View style={styles.detailsContent}>
                 <View style={styles.geneContainer}>
                   <H6>{species},</H6>
                   <H6 style={styles.origin}>{origin}</H6>
@@ -129,7 +124,7 @@ export default function Card(props: IProps) {
             ) : (
               <View style={styles.geneContainer}>
                 <H6>{species},</H6>
-                <H6 style={styles.origin}>{origin}</H6>
+                <H6 style={styles.origin}>{ellipsis(origin, 20)}</H6>
                 <ActivityLabel text={status} />
               </View>
             )}
@@ -268,5 +263,10 @@ const useStyles = (props: {
       flex: 1,
       margin: 1,
       height: Dimensions.get('window').width / props.numColumns, // approximate a square
+    },
+    detailsContent: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      paddingRight: spacing.xxsmall,
     },
   });
