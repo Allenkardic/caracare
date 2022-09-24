@@ -6,7 +6,7 @@ export default function formatFlatListGridData(data: any, numColumns: number) {
     numberOfElementsLastRow !== numColumns &&
     numberOfElementsLastRow !== 0
   ) {
-    data.push({
+    data?.push({
       empty: true,
       id: 1001.022,
       name: '',

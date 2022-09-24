@@ -1,0 +1,156 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Favourite Screen renders correctly 1`] = `
+<View
+  style={
+    Object {
+      "flex": 1,
+      "paddingTop": 24,
+    }
+  }
+>
+  <RCTScrollView
+    CellRendererComponent={[Function]}
+    ListEmptyComponent={
+      <EmptyList
+        subTitle="You do not have favourite character yet"
+      />
+    }
+    ListHeaderComponent={
+      <View
+        style={
+          Object {
+            "height": 10,
+          }
+        }
+      />
+    }
+    animatedStyle={
+      Object {
+        "value": Object {},
+      }
+    }
+    collapsable={false}
+    entering={
+      FadeIn {
+        "build": [Function],
+        "durationV": 300,
+        "randomizeDelay": false,
+      }
+    }
+    getItem={[Function]}
+    getItemCount={[Function]}
+    keyExtractor={[Function]}
+    onContentSizeChange={[Function]}
+    onEndReached={[Function]}
+    onLayout={[Function]}
+    onMomentumScrollBegin={[Function]}
+    onMomentumScrollEnd={[Function]}
+    onRefresh={[Function]}
+    onScroll={[Function]}
+    onScrollBeginDrag={[Function]}
+    onScrollEndDrag={[Function]}
+    refreshControl={
+      <RefreshControlMock
+        onRefresh={[Function]}
+        refreshing={false}
+        tintColor="rgb(28, 28, 30)"
+        title=""
+        titleColor="rgb(28, 28, 30)"
+      />
+    }
+    refreshing={false}
+    removeClippedSubviews={false}
+    renderItem={[Function]}
+    scrollEventThrottle={50}
+    showsVerticalScrollIndicator={false}
+    stickyHeaderIndices={Array []}
+    style={
+      Object {
+        "backgroundColor": "rgb(242, 242, 242)",
+        "flex": 1,
+      }
+    }
+    viewabilityConfigCallbackPairs={Array []}
+  >
+    <RCTRefreshControl />
+    <View>
+      <View
+        onLayout={[Function]}
+      >
+        <View
+          style={
+            Object {
+              "height": 10,
+            }
+          }
+        />
+      </View>
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "flexDirection": "column",
+            "justifyContent": "center",
+            "marginTop": 240,
+          }
+        }
+      >
+        <Text
+          allowFontScaling={false}
+          selectable={false}
+          style={
+            Array [
+              Object {
+                "color": "#AEAEB6",
+                "fontSize": 267,
+              },
+              undefined,
+              Object {
+                "fontFamily": "Ionicons",
+                "fontStyle": "normal",
+                "fontWeight": "normal",
+              },
+              Object {},
+            ]
+          }
+        >
+          
+        </Text>
+        <View
+          style={
+            Object {
+              "marginTop": 48,
+              "paddingHorizontal": 192,
+            }
+          }
+        >
+          <Text
+            style={
+              Array [
+                Object {
+                  "color": "rgb(28, 28, 30)",
+                  "fontFamily": "Montserrat-Regular",
+                  "fontSize": 28,
+                },
+                Object {
+                  "fontSize": 25,
+                  "textAlign": "center",
+                },
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+              ]
+            }
+          >
+            You do not have favourite character yet
+          </Text>
+        </View>
+      </View>
+    </View>
+  </RCTScrollView>
+</View>
+`;

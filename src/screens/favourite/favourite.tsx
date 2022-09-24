@@ -1,16 +1,13 @@
 import React from 'react';
 import {View, StyleSheet, Platform} from 'react-native';
-import {useSelector} from 'react-redux';
-import {Card, FlatList} from '../../components';
+import {Card, FlatList, EmptyCard} from '../../components';
 import {formatFlatListGridData, spacing} from '../../constants';
-import {useAppDispatch, RootState} from '../../redux';
+import {useAppDispatch, useAppSelector} from '../../redux/redux-hooks';
 import {addFavouriteCharacters} from '../../redux/slice';
 
 function Favourite() {
   const dispatch = useAppDispatch();
-  const {data, status} = useSelector(
-    (state: RootState) => state.favouriteCharacters,
-  );
+  const {data, status} = useAppSelector(state => state.favouriteCharacters);
 
   const grid = false;
 
@@ -19,7 +16,6 @@ function Favourite() {
       <View style={styles.container}>
         <Card
           onPress={() => {}}
-          onPressLike={() => {}}
           image={item.image}
           name={item.name}
           species={item.species}
@@ -48,13 +44,16 @@ function Favourite() {
   return (
     <View style={styles.container}>
       <FlatList
-        data={formatFlatListGridData(data, 1)}
+        data={data}
+        numColumns={1}
         renderItem={renderItem}
         emptyListText="You do not have favourite character yet"
         onEndReached={handleOnEndReached}
         onRefresh={handleOnRefresh}
         refreshing={status === 'loading'}
-        keyExtractor={item => item.id.toString() ?? ''}
+        keyExtractor={(_: any, index: number) => {
+          return index.toString() ?? '';
+        }}
       />
     </View>
   );

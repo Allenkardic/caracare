@@ -1,15 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import {Platform, StyleSheet, View} from 'react-native';
-import {useSelector} from 'react-redux';
 import {Switch} from '../../components';
-import {useAppDispatch, RootState} from '../../redux';
+import {useAppDispatch, useAppSelector} from '../../redux/redux-hooks';
 import {fetchSettings} from '../../redux/slice';
 import {spacing} from '../../constants';
 
 function Settings() {
   const dispatch = useAppDispatch();
 
-  const settingsState = useSelector((state: RootState) => state.settings);
+  const settingsState = useAppSelector(state => state.settings);
   const [isEnabled, setIsEnabled] = useState(
     settingsState.data.isCharacterScreenGrid,
   );

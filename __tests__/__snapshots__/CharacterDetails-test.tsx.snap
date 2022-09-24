@@ -1,0 +1,413 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Character Details Screen renders correctly 1`] = `
+<RCTScrollView
+  style={
+    Object {
+      "paddingTop": 24,
+    }
+  }
+>
+  <View>
+    <View
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Array [
+          Object {
+            "marginBottom": 48,
+          },
+          Object {},
+        ]
+      }
+    >
+      <View
+        style={
+          Object {
+            "borderTopLeftRadius": 10,
+            "borderTopRightRadius": 10,
+            "height": 667,
+            "width": "100%",
+          }
+        }
+      >
+        <Image
+          source={
+            Object {
+              "uri": "https://rickandmortyapi.com/api/character/avatar/1.jpeg",
+            }
+          }
+          style={
+            Array [
+              Object {
+                "height": "100%",
+                "resizeMode": "cover",
+                "width": "100%",
+              },
+              Object {},
+            ]
+          }
+        />
+      </View>
+      <View
+        style={
+          Object {
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+            "paddingLeft": 24,
+            "paddingTop": 24,
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "width": "100%",
+            }
+          }
+        >
+          <Text
+            style={
+              Array [
+                Object {
+                  "color": "rgb(28, 28, 30)",
+                  "fontFamily": "Montserrat-Regular",
+                  "fontSize": 28,
+                },
+                Object {
+                  "fontSize": 31,
+                  "textAlign": "left",
+                },
+                undefined,
+                undefined,
+                Object {
+                  "fontFamily": "Montserrat-SemiBold",
+                },
+                undefined,
+                undefined,
+                undefined,
+              ]
+            }
+          />
+          <View
+            style={
+              Object {
+                "flexDirection": "row",
+                "justifyContent": "space-between",
+                "paddingRight": 24,
+              }
+            }
+          >
+            <View
+              style={
+                Object {
+                  "alignItems": "center",
+                  "flexDirection": "row",
+                  "marginVertical": 12,
+                }
+              }
+            >
+              <Text
+                style={
+                  Array [
+                    Object {
+                      "color": "rgb(28, 28, 30)",
+                      "fontFamily": "Montserrat-Regular",
+                      "fontSize": 28,
+                    },
+                    Object {
+                      "fontSize": 25,
+                      "textAlign": "left",
+                    },
+                    undefined,
+                    undefined,
+                    undefined,
+                    undefined,
+                    undefined,
+                    undefined,
+                  ]
+                }
+              >
+                ,
+              </Text>
+              <Text
+                style={
+                  Array [
+                    Object {
+                      "color": "rgb(28, 28, 30)",
+                      "fontFamily": "Montserrat-Regular",
+                      "fontSize": 28,
+                    },
+                    Object {
+                      "fontSize": 25,
+                      "marginHorizontal": 8,
+                      "textAlign": "left",
+                    },
+                    undefined,
+                    undefined,
+                    undefined,
+                    undefined,
+                    undefined,
+                    undefined,
+                  ]
+                }
+              />
+            </View>
+            <View
+              style={
+                Object {
+                  "alignItems": "center",
+                  "alignSelf": "flex-start",
+                  "backgroundColor": "#6D6E71",
+                  "borderRadius": 10,
+                  "justifyContent": "center",
+                  "paddingHorizontal": 12,
+                  "paddingVertical": 2,
+                }
+              }
+            >
+              <Text
+                style={
+                  Array [
+                    Object {
+                      "color": "rgb(28, 28, 30)",
+                      "fontFamily": "Montserrat-Regular",
+                      "fontSize": 28,
+                    },
+                    Object {
+                      "fontSize": 25,
+                      "textAlign": "left",
+                    },
+                    Object {
+                      "color": "#FFFFFF",
+                    },
+                    Object {
+                      "fontFamily": "Montserrat-Bold",
+                    },
+                    undefined,
+                    undefined,
+                    undefined,
+                    undefined,
+                  ]
+                }
+              />
+            </View>
+          </View>
+          <View>
+            <View
+              style={
+                Object {
+                  "alignItems": "center",
+                  "flexDirection": "row",
+                  "marginTop": 24,
+                }
+              }
+            >
+              <Text
+                style={
+                  Array [
+                    Object {
+                      "color": "rgb(28, 28, 30)",
+                      "fontFamily": "Montserrat-Regular",
+                      "fontSize": 28,
+                    },
+                    Object {
+                      "fontSize": 25,
+                      "textAlign": "left",
+                    },
+                    undefined,
+                    undefined,
+                    undefined,
+                    undefined,
+                    undefined,
+                    undefined,
+                  ]
+                }
+              >
+                first episode: 
+              </Text>
+              <Text
+                style={
+                  Array [
+                    Object {
+                      "color": "rgb(28, 28, 30)",
+                      "fontFamily": "Montserrat-Regular",
+                      "fontSize": 28,
+                    },
+                    Object {
+                      "fontSize": 25,
+                      "textAlign": "left",
+                    },
+                    undefined,
+                    undefined,
+                    undefined,
+                    undefined,
+                    undefined,
+                    undefined,
+                  ]
+                }
+              />
+              <View
+                style={
+                  Object {
+                    "backgroundColor": "#6D6E71",
+                    "borderRadius": 2.5,
+                    "height": 5,
+                    "marginHorizontal": 8,
+                    "width": 5,
+                  }
+                }
+              />
+              <Text
+                style={
+                  Array [
+                    Object {
+                      "color": "rgb(28, 28, 30)",
+                      "fontFamily": "Montserrat-Regular",
+                      "fontSize": 28,
+                    },
+                    Object {
+                      "fontSize": 25,
+                      "textAlign": "left",
+                    },
+                    undefined,
+                    undefined,
+                    undefined,
+                    undefined,
+                    undefined,
+                    undefined,
+                  ]
+                }
+              />
+            </View>
+            <View
+              style={
+                Array [
+                  Object {
+                    "alignItems": "center",
+                    "flexDirection": "row",
+                    "marginTop": 24,
+                  },
+                ]
+              }
+            >
+              <Text
+                style={
+                  Array [
+                    Object {
+                      "color": "rgb(28, 28, 30)",
+                      "fontFamily": "Montserrat-Regular",
+                      "fontSize": 28,
+                    },
+                    Object {
+                      "fontSize": 25,
+                      "textAlign": "left",
+                    },
+                    undefined,
+                    undefined,
+                    undefined,
+                    undefined,
+                    undefined,
+                    undefined,
+                  ]
+                }
+              >
+                last episode: 
+              </Text>
+              <Text
+                style={
+                  Array [
+                    Object {
+                      "color": "rgb(28, 28, 30)",
+                      "fontFamily": "Montserrat-Regular",
+                      "fontSize": 28,
+                    },
+                    Object {
+                      "fontSize": 25,
+                      "textAlign": "left",
+                    },
+                    undefined,
+                    undefined,
+                    undefined,
+                    undefined,
+                    undefined,
+                    undefined,
+                  ]
+                }
+              />
+              <View
+                style={
+                  Object {
+                    "backgroundColor": "#6D6E71",
+                    "borderRadius": 2.5,
+                    "height": 5,
+                    "marginHorizontal": 8,
+                    "width": 5,
+                  }
+                }
+              />
+              <Text
+                style={
+                  Array [
+                    Object {
+                      "color": "rgb(28, 28, 30)",
+                      "fontFamily": "Montserrat-Regular",
+                      "fontSize": 28,
+                    },
+                    Object {
+                      "fontSize": 25,
+                      "textAlign": "left",
+                    },
+                    undefined,
+                    undefined,
+                    undefined,
+                    undefined,
+                    undefined,
+                    undefined,
+                  ]
+                }
+              />
+            </View>
+            <Text
+              style={
+                Array [
+                  Object {
+                    "color": "rgb(28, 28, 30)",
+                    "fontFamily": "Montserrat-Regular",
+                    "fontSize": 28,
+                  },
+                  Object {
+                    "alignItems": "center",
+                    "flexDirection": "row",
+                    "fontSize": 25,
+                    "marginTop": 24,
+                    "textAlign": "left",
+                  },
+                  undefined,
+                  undefined,
+                  undefined,
+                  undefined,
+                  undefined,
+                  undefined,
+                ]
+              }
+            >
+              total number of episode: 
+            </Text>
+          </View>
+        </View>
+      </View>
+    </View>
+  </View>
+</RCTScrollView>
+`;

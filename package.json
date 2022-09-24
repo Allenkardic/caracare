@@ -50,6 +50,10 @@
   },
   "jest": {
     "preset": "react-native",
+    "setupFiles": [
+      "<rootDir>/jest/setup.js"
+    ],
+    "testEnvironment": "jsdom",
     "moduleFileExtensions": [
       "ts",
       "tsx",
@@ -57,6 +61,9 @@
       "jsx",
       "json",
       "node"
+    ],
+    "transformIgnorePatterns": [
+      "node_modules/(?!(jest-)?react-native|react-clone-referenced-element|@react-native-community|rollbar-react-native|@fortawesome|@react-native|@react-navigation|@react-native-async-storage/async-storage)"
     ]
   }
 }

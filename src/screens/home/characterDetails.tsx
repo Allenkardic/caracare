@@ -1,9 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {ScrollView, Alert, StyleSheet, Platform} from 'react-native';
-import {useSelector} from 'react-redux';
 import {Card} from '../../components';
 import {spacing} from '../../constants';
-import {useAppDispatch, RootState} from '../../redux';
+import {useAppDispatch, useAppSelector} from '../../redux/redux-hooks';
 import {fetchSingleCharacter} from '../../redux/slice';
 import {CharacterResultType} from '../../types';
 
@@ -13,9 +12,7 @@ interface IProps {
 
 function CharacterDetails({route: {params}}: IProps) {
   const dispatch = useAppDispatch();
-  const singleCharacterState = useSelector(
-    (state: RootState) => state.singleCharacter,
-  );
+  const singleCharacterState = useAppSelector(state => state.singleCharacter);
 
   const [singleCharacterData, setSingleCharacterData] =
     useState<CharacterResultType>({});

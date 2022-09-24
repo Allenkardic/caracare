@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {View, StyleSheet, Platform} from 'react-native';
 import {NavigationProp, ParamListBase} from '@react-navigation/native';
-import {useSelector} from 'react-redux';
 import stack from '../../constants/routes';
 import {
   Card,
@@ -13,7 +12,7 @@ import {
   H6,
 } from '../../components';
 import {colors, formatFlatListGridData, spacing} from '../../constants';
-import {useAppDispatch, RootState} from '../../redux';
+import {useAppDispatch, useAppSelector} from '../../redux/redux-hooks';
 import {
   fetchCharacters,
   addFavouriteCharacters,
@@ -29,8 +28,8 @@ function Characters({navigation}: IProps) {
   const {characterDetails} = stack.stack;
 
   const dispatch = useAppDispatch();
-  const charactersState = useSelector((state: RootState) => state.characters);
-  const settingsState = useSelector((state: RootState) => state.settings);
+  const charactersState = useAppSelector(state => state.characters);
+  const settingsState = useAppSelector(state => state.settings);
   const [dataList, setDataList] = useState<CharacterResultType[]>([]);
   const [searchNameValue, setSearchNameValue] = useState('');
   const [selectedStatusValue, setSelectedStatusValue] = useState('');
@@ -64,7 +63,7 @@ function Characters({navigation}: IProps) {
 
   function number() {
     let number: number;
-    if (settingsState.data.isCharacterScreenGrid) {
+    if (settingsState?.data?.isCharacterScreenGrid) {
       number = 2;
     } else {
       number = 1;
