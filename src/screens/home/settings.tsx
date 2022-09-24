@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import {StyleSheet, View} from 'react-native';
+import {Platform, StyleSheet, View} from 'react-native';
+import {useSelector} from 'react-redux';
 import {Switch} from '../../components';
 import {useAppDispatch, RootState} from '../../redux';
-import {useSelector} from 'react-redux';
 import {fetchSettings} from '../../redux/slice';
 import {spacing} from '../../constants';
 
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: spacing.xxsmall,
-    marginTop: spacing.small,
+    marginTop: Platform.OS === 'android' ? spacing.medium : spacing.small,
   },
 });
 
